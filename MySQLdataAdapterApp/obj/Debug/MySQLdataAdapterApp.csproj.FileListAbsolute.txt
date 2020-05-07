@@ -1,0 +1,16 @@
+C:\Users\wim\source\repos\MySQLDataAdapterTest\MySQLdataAdapterApp\bin\Debug\MySQLdataAdapterApp.exe.config
+C:\Users\wim\source\repos\MySQLDataAdapterTest\MySQLdataAdapterApp\bin\Debug\MySQLdataAdapterApp.exe
+C:\Users\wim\source\repos\MySQLDataAdapterTest\MySQLdataAdapterApp\bin\Debug\MySQLdataAdapterApp.pdb
+C:\Users\wim\source\repos\MySQLDataAdapterTest\MySQLdataAdapterApp\bin\Debug\MySql.Data.dll
+C:\Users\wim\source\repos\MySQLDataAdapterTest\MySQLdataAdapterApp\bin\Debug\Google.Protobuf.dll
+C:\Users\wim\source\repos\MySQLDataAdapterTest\MySQLdataAdapterApp\bin\Debug\BouncyCastle.Crypto.dll
+C:\Users\wim\source\repos\MySQLDataAdapterTest\MySQLdataAdapterApp\bin\Debug\Ubiety.Dns.Core.dll
+C:\Users\wim\source\repos\MySQLDataAdapterTest\MySQLdataAdapterApp\bin\Debug\Renci.SshNet.dll
+C:\Users\wim\source\repos\MySQLDataAdapterTest\MySQLdataAdapterApp\bin\Debug\MySql.Data.xml
+C:\Users\wim\source\repos\MySQLDataAdapterTest\MySQLdataAdapterApp\obj\Debug\MySQLdataAdapterApp.csprojAssemblyReference.cache
+C:\Users\wim\source\repos\MySQLDataAdapterTest\MySQLdataAdapterApp\obj\Debug\MySQLdataAdapterApp.Form1.resources
+C:\Users\wim\source\repos\MySQLDataAdapterTest\MySQLdataAdapterApp\obj\Debug\MySQLdataAdapterApp.Properties.Resources.resources
+C:\Users\wim\source\repos\MySQLDataAdapterTest\MySQLdataAdapterApp\obj\Debug\MySQLdataAdapterApp.csproj.GenerateResource.cache
+C:\Users\wim\source\repos\MySQLDataAdapterTest\MySQLdataAdapterApp\obj\Debug\MySQLdataAdapterApp.csproj.CopyComplete
+C:\Users\wim\source\repos\MySQLDataAdapterTest\MySQLdataAdapterApp\obj\Debug\MySQLdataAdapterApp.exe
+C:\Users\wim\source\repos\MySQLDataAdapterTest\MySQLdataAdapterApp\obj\Debug\MySQLdataAdapterApp.pdb
