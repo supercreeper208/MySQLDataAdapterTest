@@ -45,5 +45,19 @@ namespace MySQLdataAdapterApp
             myDataAdapter.Update(myChanges);
             myTable.AcceptChanges();
         }
+
+        private void DgvProducten_DoubleClick(object sender, EventArgs e)
+        {
+            DataGridViewSelectedRowCollection geselecteerdeRijen = DgvProducten.SelectedRows;
+
+            StringBuilder sb = new StringBuilder();
+
+            foreach (DataGridViewRow r in geselecteerdeRijen)
+            {
+                sb.Append(r.Index.ToString());
+            }
+
+            MessageBox.Show("rij "+sb.ToString()+ " geselecteerd...");
+        }
     }
 }
