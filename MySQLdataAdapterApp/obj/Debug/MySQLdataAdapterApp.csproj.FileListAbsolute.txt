@@ -8,9 +8,10 @@ C:\Users\wim\source\repos\MySQLDataAdapterTest\MySQLdataAdapterApp\bin\Debug\Ubi
 C:\Users\wim\source\repos\MySQLDataAdapterTest\MySQLdataAdapterApp\bin\Debug\Renci.SshNet.dll
 C:\Users\wim\source\repos\MySQLDataAdapterTest\MySQLdataAdapterApp\bin\Debug\MySql.Data.xml
 C:\Users\wim\source\repos\MySQLDataAdapterTest\MySQLdataAdapterApp\obj\Debug\MySQLdataAdapterApp.csprojAssemblyReference.cache
-C:\Users\wim\source\repos\MySQLDataAdapterTest\MySQLdataAdapterApp\obj\Debug\MySQLdataAdapterApp.Form1.resources
 C:\Users\wim\source\repos\MySQLDataAdapterTest\MySQLdataAdapterApp\obj\Debug\MySQLdataAdapterApp.Properties.Resources.resources
 C:\Users\wim\source\repos\MySQLDataAdapterTest\MySQLdataAdapterApp\obj\Debug\MySQLdataAdapterApp.csproj.GenerateResource.cache
 C:\Users\wim\source\repos\MySQLDataAdapterTest\MySQLdataAdapterApp\obj\Debug\MySQLdataAdapterApp.csproj.CopyComplete
 C:\Users\wim\source\repos\MySQLDataAdapterTest\MySQLdataAdapterApp\obj\Debug\MySQLdataAdapterApp.exe
 C:\Users\wim\source\repos\MySQLDataAdapterTest\MySQLdataAdapterApp\obj\Debug\MySQLdataAdapterApp.pdb
+C:\Users\wim\source\repos\MySQLDataAdapterTest\MySQLdataAdapterApp\obj\Debug\MySQLdataAdapterApp.mainForm.resources
+C:\Users\wim\source\repos\MySQLDataAdapterTest\MySQLdataAdapterApp\obj\Debug\MySQLdataAdapterApp.invulForm.resources
