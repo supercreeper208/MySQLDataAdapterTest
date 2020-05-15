@@ -20,28 +20,72 @@ namespace MySQLdataAdapterApp
         MySqlCommandBuilder myCommandBuidler;
         DataTable myTable;
         string connectionString;
-        string selectQuery = "SELECT productNaam, productStock, beschikbaar FROM producten";
+        string selectQuery = "SELECT * FROM producten";
+
+        invulForm invulForm = new invulForm();
         public mainForm()
         {
             InitializeComponent();
             connectionString = ConfigurationManager.ConnectionStrings["MySQLConnection"].ConnectionString;
+            invulForm.Hide();
+            invulForm.wijzegingenOplsaan += InvulFormOnWijzigingenOpslaan;
+            invulForm.nieuwRecordOplsaan += InvulFormOnNieuwRecordOpslaan;
+        }
+
+        private void InvulFormOnNieuwRecordOpslaan(object sender, List<string> e)
+        {
+           // myTable.Rows.Add(e);
+        }
+        private void InvulFormOnWijzigingenOpslaan(object sender, List<string> e)
+        {
+            int rij = Int32.Parse(e[3]);
+            PasDataTabelAan(myTable, rij, 1, e[0]);
+            PasDataTabelAan(myTable, rij, 2, e[1]);
+            PasDataTabelAan(myTable, rij, 3, e[2]);
+            invulForm.Hide();
         }
 
         private void BtnExecuteSelectQuery_Click(object sender, EventArgs e)
         {
             myConnection = new MySqlConnection(connectionString);
-            myDataAdapter = new MySqlDataAdapter(selectQuery, myConnection);
-            myCommandBuidler = new MySqlCommandBuilder(myDataAdapter);
             myTable = new DataTable();
-            myDataAdapter.Fill(myTable);
             DgvProducten.DataSource = myTable;
+            using (myDataAdapter = new MySqlDataAdapter(selectQuery, myConnection))
+            {
+                myCommandBuidler = new MySqlCommandBuilder(myDataAdapter);
+                myDataAdapter.Fill(myTable);
+                
+            }
+            DgvProducten.ClearSelection();
+            BtnRecordVerwijderen.Enabled = false;
+            BtnRecordToevoegen.Enabled = true;
+            BtnRecordWijzigen.Enabled = true;
         }
 
         private void BtnUpdateTabel_Click(object sender, EventArgs e)
-        {
+        {  
             DataTable myChanges = myTable.GetChanges();
-            myDataAdapter.Update(myChanges);
-            myTable.AcceptChanges();
+            if (myChanges != null)
+            {
+                using (myDataAdapter = new MySqlDataAdapter(selectQuery, myConnection))
+                {
+                    myCommandBuidler = new MySqlCommandBuilder(myDataAdapter);
+                    myDataAdapter.Update(myChanges);
+                    myTable.AcceptChanges();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Er zijn geen veranderingen!"); ;
+            }
+        }
+
+        private void PasDataTabelAan(DataTable tabel, int rij, int kol, string data)
+        {
+            if (rij < tabel.Rows.Count && kol < tabel.Columns.Count)
+            {
+                tabel.Rows[rij][kol] = data;
+            }
         }
 
         private void DgvProducten_DoubleClick(object sender, EventArgs e)
@@ -58,19 +102,43 @@ namespace MySQLdataAdapterApp
             MessageBox.Show("rij "+sb.ToString()+ " geselecteerd...");
         }
 
+        private void verwijderRecordDataTable(DataGridView grid, int rij)
+        {
+            if(rij < grid.Rows.Count)
+            {
+                grid.Rows.RemoveAt(rij);
+            }
+        }
+
         private void BtnRecordVerwijderen_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Je zal het invulform moeten tonen en via die weg de gegevens toevoegen...");
+            if(MessageBox.Show("Ben je zeker dat je " +DgvProducten.SelectedRows[0].Cells[1].Value +
+                " wilt verwijderen?","Zeker delete?", MessageBoxButtons.YesNo) 
+                == DialogResult.Yes)
+            {
+                verwijderRecordDataTable(DgvProducten, DgvProducten.SelectedRows[0].Index);
+            }
         }
 
         private void BtnRecordWijzigen_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Je zal het invulform moeten tonen en via die weg de gegevens toevoegen...");
+            DataGridViewRow temp = DgvProducten.SelectedRows[0];
+            invulForm.recordAanpassen(temp.Index, temp.Cells[1].Value.ToString(), temp.Cells[2].Value.ToString()
+                , temp.Cells[3].Value.ToString());
+            invulForm.Show();
+            invulForm.BringToFront();
         }
 
         private void BtnRecordToevoegen_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Je zal het invulform moeten tonen en via die weg de gegevens toevoegen...");
+            invulForm.recordToevoegen();
+            invulForm.Show();
+            invulForm.BringToFront();
+        }
+
+        private void DgvProducten_SelectionChanged(object sender, EventArgs e)
+        {
+            BtnRecordVerwijderen.Enabled = true;
         }
     }
 }
