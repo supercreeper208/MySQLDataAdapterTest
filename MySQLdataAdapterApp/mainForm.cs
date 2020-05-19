@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using System.Configuration;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.CodeDom.Compiler;
 
 namespace MySQLdataAdapterApp
 {
@@ -101,6 +102,19 @@ namespace MySQLdataAdapterApp
             BtnRecordWijzigen.Enabled = true;
         }
 
+        private void ExecuteMySqlCommand(MySqlConnection connection ,string command)
+        {
+            using (MySqlCommand tempComm = new MySqlCommand())
+            {
+                tempComm.Connection = connection;
+                connection.Open();
+                tempComm.CommandText = "set foreign_key_checks = 0;";
+                tempComm.CommandType = CommandType.Text;
+                tempComm.ExecuteNonQuery();
+                connection.Close();
+            }
+        }
+
         private void BtnUpdateTabel_Click(object sender, EventArgs e)
         {  
             DataTable myChanges = myTable.GetChanges();
@@ -108,10 +122,12 @@ namespace MySQLdataAdapterApp
             {
                 using (myDataAdapter = new MySqlDataAdapter(selectQuery, myConnection))
                 {
+                    ExecuteMySqlCommand(myConnection, "set foreign_key_checks = 0;");
                     myCommandBuidler = new MySqlCommandBuilder(myDataAdapter);
                     myDataAdapter.Update(myChanges);
                     myTable.AcceptChanges();
                     updateDataTable();
+                    ExecuteMySqlCommand(myConnection, "set foreign_key_checks = 0;");
                 }
             }
             else
