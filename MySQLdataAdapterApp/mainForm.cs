@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using System.Configuration;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace MySQLdataAdapterApp
 {
@@ -34,7 +35,13 @@ namespace MySQLdataAdapterApp
 
         private void InvulFormOnNieuwRecordOpslaan(object sender, List<string> e)
         {
-           // myTable.Rows.Add(e);
+            DataRow nieweRij = myTable.NewRow();
+            nieweRij[0] = DBNull.Value;
+            nieweRij[1] = e[0];
+            nieweRij[2] = e[1];
+            nieweRij[3] = e[2];
+            myTable.Rows.Add(nieweRij);
+            invulForm.Hide();
         }
         private void InvulFormOnWijzigingenOpslaan(object sender, List<string> e)
         {
@@ -45,9 +52,41 @@ namespace MySQLdataAdapterApp
             invulForm.Hide();
         }
 
+        private void updateDataTable()
+        {
+            using (myDataAdapter = new MySqlDataAdapter(selectQuery, myConnection))
+            {
+                DataSet dataset = new DataSet();
+                myCommandBuidler = new MySqlCommandBuilder(myDataAdapter);
+                myTable.Clear();
+                myDataAdapter.Fill(myTable);
+            }
+        }
+
+        private bool IsDatabaseAllive()
+        {
+            try
+            {
+                myConnection.Open();
+                myConnection.Close();
+            }
+            catch (MySqlException)
+            {
+                return false;
+            }
+            return true;
+
+        }
+
         private void BtnExecuteSelectQuery_Click(object sender, EventArgs e)
         {
             myConnection = new MySqlConnection(connectionString);
+            if(!IsDatabaseAllive())
+            {
+                MessageBox.Show("Database Error!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            Console.WriteLine(myConnection.State);
             myTable = new DataTable();
             DgvProducten.DataSource = myTable;
             using (myDataAdapter = new MySqlDataAdapter(selectQuery, myConnection))
@@ -72,6 +111,7 @@ namespace MySQLdataAdapterApp
                     myCommandBuidler = new MySqlCommandBuilder(myDataAdapter);
                     myDataAdapter.Update(myChanges);
                     myTable.AcceptChanges();
+                    updateDataTable();
                 }
             }
             else

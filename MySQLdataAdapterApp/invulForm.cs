@@ -14,7 +14,7 @@ namespace MySQLdataAdapterApp
 
     public partial class invulForm : Form
     {
-        public event EventHandler<List<String>> wijzegingenOplsaan;
+        public event EventHandler<List<string>> wijzegingenOplsaan;
         public event EventHandler<List<string>> nieuwRecordOplsaan;
 
         private int mode = -1;
