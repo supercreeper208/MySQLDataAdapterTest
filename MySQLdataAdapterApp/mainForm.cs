@@ -136,6 +136,14 @@ namespace MySQLdataAdapterApp
             }
         }
 
+        private void PasDataGridVieuwAan(DataGridView grid, int rij, int kol, string data)
+        {
+            if(rij < grid.Rows.Count && kol < grid.Columns.Count)
+            {
+                grid.Rows[rij].Cells[kol].Value = data;
+            }
+        }
+
         private void PasDataTabelAan(DataTable tabel, int rij, int kol, string data)
         {
             if (rij < tabel.Rows.Count && kol < tabel.Columns.Count)
@@ -156,6 +164,11 @@ namespace MySQLdataAdapterApp
             }
 
             MessageBox.Show("rij "+sb.ToString()+ " geselecteerd...");
+
+            /*PasDataGridVieuwAan(DgvProducten, 0, 1, "manneken pis");
+            Console.WriteLine(myTable.Rows[0][1]);
+            Console.WriteLine(DgvProducten.Rows[0].Cells[1].Value);
+            */
         }
 
         private void verwijderRecordDataTable(DataGridView grid, int rij)
