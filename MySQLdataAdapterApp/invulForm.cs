@@ -14,25 +14,20 @@ namespace MySQLdataAdapterApp
 
     public partial class invulForm : Form
     {
-        public event EventHandler<List<string>> wijzegingenOplsaan;
-        public event EventHandler<List<string>> nieuwRecordOplsaan;
-
+        public delegate void ReturnDataDelagate(List<string> data);
+        public ReturnDataDelagate EditRecord;
+        public ReturnDataDelagate CreateNewRecord;
+        mainForm parentForm;
         private int mode = -1;
 
-        public invulForm()
+        public invulForm(mainForm parent)
         {
+            parentForm = parent;
+            EditRecord += new ReturnDataDelagate(parentForm.WijzigingenOpslaan);
+            CreateNewRecord += new ReturnDataDelagate(parentForm.NieuwRecordOpslaan);
             InitializeComponent();
         }
 
-        protected virtual void OnWijzegingenOplsaan(List<string> e)
-        {
-            wijzegingenOplsaan?.Invoke(this, e);
-        }
-
-        protected virtual void OnNieuwRecordOplsaan(List<string> e)
-        {
-            nieuwRecordOplsaan?.Invoke(this, e);
-        }
 
 
         public void recordAanpassen(int row, string productNaam, string stock, string beschikbaarheid)
@@ -83,11 +78,11 @@ namespace MySQLdataAdapterApp
                 if (mode != -1)
                 {
                     temp.Add(mode.ToString());
-                    OnWijzegingenOplsaan(temp);
+                    EditRecord(temp);
                 }
                 else
                 {
-                    OnNieuwRecordOplsaan(temp);
+                    CreateNewRecord(temp);
                 }
             }
             else

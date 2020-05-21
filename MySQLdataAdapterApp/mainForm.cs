@@ -24,17 +24,16 @@ namespace MySQLdataAdapterApp
         string connectionString;
         string selectQuery = "SELECT * FROM producten";
 
-        invulForm invulForm = new invulForm();
+        invulForm invulForm;
         public mainForm()
         {
+            invulForm = new invulForm(this);
             InitializeComponent();
             connectionString = ConfigurationManager.ConnectionStrings["MySQLConnection"].ConnectionString;
             invulForm.Hide();
-            invulForm.wijzegingenOplsaan += InvulFormOnWijzigingenOpslaan;
-            invulForm.nieuwRecordOplsaan += InvulFormOnNieuwRecordOpslaan;
         }
 
-        private void InvulFormOnNieuwRecordOpslaan(object sender, List<string> e)
+        public void NieuwRecordOpslaan(List<string> e)
         {
             DataRow nieweRij = myTable.NewRow();
             nieweRij[0] = DBNull.Value;
@@ -44,7 +43,7 @@ namespace MySQLdataAdapterApp
             myTable.Rows.Add(nieweRij);
             invulForm.Hide();
         }
-        private void InvulFormOnWijzigingenOpslaan(object sender, List<string> e)
+        public void WijzigingenOpslaan(List<string> e)
         {
             int rij = Int32.Parse(e[3]);
             PasDataTabelAan(myTable, rij, 1, e[0]);
@@ -108,7 +107,7 @@ namespace MySQLdataAdapterApp
             {
                 tempComm.Connection = connection;
                 connection.Open();
-                tempComm.CommandText = "set foreign_key_checks = 0;";
+                tempComm.CommandText = command;
                 tempComm.CommandType = CommandType.Text;
                 tempComm.ExecuteNonQuery();
                 connection.Close();
@@ -127,7 +126,7 @@ namespace MySQLdataAdapterApp
                     myDataAdapter.Update(myChanges);
                     myTable.AcceptChanges();
                     updateDataTable();
-                    ExecuteMySqlCommand(myConnection, "set foreign_key_checks = 0;");
+                    ExecuteMySqlCommand(myConnection, "set foreign_key_checks = 1;");
                 }
             }
             else
